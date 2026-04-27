@@ -14,6 +14,8 @@ declare module "next-auth" {
   }
 }
 
+import { validateUser } from "@/lib/services/auth";
+
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
     CredentialsProvider({
@@ -22,24 +24,18 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         email: { label: "Email", type: "email", placeholder: "john@example.com" },
         password: { label: "Password", type: "password" }
       },
-      async authorize(credentials, req): Promise<User | null> {
+      async authorize(credentials): Promise<User | null> {
         try {
-          const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001";
-          const res = await fetch(`${API_BASE}/api/auth/login`, {
-            method: 'POST',
-            body: JSON.stringify(credentials),
-            headers: { "Content-Type": "application/json" }
-          });
+          if (!credentials?.email || !credentials?.password) return null;
           
-          const data = await res.json();
+          const user = await validateUser(credentials.email as string, credentials.password as string);
           
-          if (res.ok && data.user && data.access_token) {
+          if (user) {
             return {
-              id: data.user.id,
-              name: data.user.fullName,
-              email: data.user.email,
-              role: data.user.role,
-              token: data.access_token
+              id: user.id,
+              name: user.fullName,
+              email: user.email,
+              role: user.role,
             };
           }
           return null;
