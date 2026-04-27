@@ -24,7 +24,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       },
       async authorize(credentials, req): Promise<User | null> {
         try {
-          const res = await fetch("http://localhost:3001/api/auth/login", {
+          const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001";
+          const res = await fetch(`${API_BASE}/api/auth/login`, {
             method: 'POST',
             body: JSON.stringify(credentials),
             headers: { "Content-Type": "application/json" }
