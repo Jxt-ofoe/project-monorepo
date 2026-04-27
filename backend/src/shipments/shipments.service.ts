@@ -113,6 +113,17 @@ export class ShipmentsService {
     return shipment;
   }
 
+  async calculateQuote(dto: any) {
+    return this.serviceRatesService.calculateQuote({
+      weightKg: dto.weightKg,
+      pickupLat: dto.pickupLat,
+      pickupLng: dto.pickupLng,
+      deliveryLat: dto.deliveryLat,
+      deliveryLng: dto.deliveryLng,
+      priority: dto.priority ?? 'standard',
+    });
+  }
+
   async findById(id: string): Promise<Shipment> {
     const result = await this.db.select().from(shipments).where(eq(shipments.id, id)).limit(1);
     if (!result[0]) throw new NotFoundException(`Shipment ${id} not found`);

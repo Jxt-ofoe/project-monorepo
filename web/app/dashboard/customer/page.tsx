@@ -92,7 +92,7 @@ export default function CustomerDashboard() {
           <div className="flex items-center gap-6">
             <div className="hidden md:block text-right">
               <p className="text-xs font-bold text-secondary/60">Welcome back,</p>
-              <p className="text-sm font-black text-secondary">{session?.user?.fullName || session?.user?.email}</p>
+              <p className="text-sm font-black text-secondary">{session?.user?.name || session?.user?.email}</p>
             </div>
             <button
               onClick={() => signOut({ callbackUrl: "/" })}

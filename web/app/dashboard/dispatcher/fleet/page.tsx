@@ -18,11 +18,26 @@ const FleetMap = dynamic(() => import('@/components/fleet/FleetMap'), {
   )
 });
 
+interface Driver {
+  id: string;
+  status: string;
+  fullName: string;
+  currentLat: number | null;
+  currentLng: number | null;
+}
+
+interface Shipment {
+  id: string;
+  trackingNumber: string;
+  status: string;
+  receiverAddress: string;
+}
+
 export default function FleetPage() {
   const { data: session, status } = useSession();
   const router = useRouter();
-  const [drivers, setDrivers] = useState([]);
-  const [shipments, setShipments] = useState([]);
+  const [drivers, setDrivers] = useState<Driver[]>([]);
+  const [shipments, setShipments] = useState<Shipment[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
