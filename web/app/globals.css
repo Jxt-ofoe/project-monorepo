@@ -1,0 +1,108 @@
+@import "tailwindcss";
+
+:root {
+  --background: #fdfdfd;
+  --foreground: #0f172a; /* Deep Slate */
+  
+  --primary: #f59e0b; /* Amber 500 */
+  --primary-foreground: #ffffff;
+  
+  --secondary: #334155; /* Slate 700 */
+  --secondary-foreground: #f8fafc;
+  
+  --accent: #fff7ed; /* Amber 50 */
+  --accent-foreground: #92400e;
+  
+  --card: rgba(255, 255, 255, 0.8);
+  --card-foreground: #0f172a;
+  
+  --border: #e2e8f0;
+  --radius: 0.75rem;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+  --color-accent: var(--accent);
+  --color-border: var(--border);
+  
+  --font-sans: 'Inter', var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #020617; /* Deepest Slate */
+    --foreground: #f8fafc;
+    
+    --primary: #fbbf24; /* Amber 400 */
+    --primary-foreground: #020617;
+    
+    --secondary: #1e293b;
+    --secondary-foreground: #f8fafc;
+    
+    --accent: #1e1b16;
+    --accent-foreground: #fbbf24;
+    
+    --card: rgba(15, 23, 42, 0.7);
+    --card-foreground: #f8fafc;
+    
+    --border: #1e293b;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Glassmorphism utility */
+.glass-card {
+  background: var(--card);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border);
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+}
+
+/* Gradient background for hero sections */
+.premium-gradient {
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+}
+
+.amber-glow {
+  box-shadow: 0 0 15px rgba(245, 158, 11, 0.3);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--secondary);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.4s ease forwards;
+}
+
+.stagger-1 { animation-delay: 0.1s; }
+.stagger-2 { animation-delay: 0.2s; }
+.stagger-3 { animation-delay: 0.3s; }
